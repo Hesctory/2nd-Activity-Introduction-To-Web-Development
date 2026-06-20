@@ -1,0 +1,550 @@
+/* ------------------------------------------------------------------ */
+/* Cabin — a free humanist sans-serif inspired by Gill Sans, self-hosted */
+/* so it renders correctly even offline. Served from frontend/public.    */
+/* It is a variable font, so one file covers weights 400–700.            */
+/* ------------------------------------------------------------------ */
+@font-face {
+  font-family: "Cabin";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/cabin-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6,
+    U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122,
+    U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Cabin";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/fonts/cabin-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7,
+    U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F,
+    U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F,
+    U+A720-A7FF;
+}
+
+/* ------------------------------------------------------------------ */
+/* Design tokens — classic, sober, dark palette (per the statement).    */
+/* ------------------------------------------------------------------ */
+:root {
+  --bg: #14110f;
+  --bg-elevated: #1e1a17;
+  --bg-card: #221d19;
+  --border: #3a322b;
+  --text: #ece6dd;
+  --text-muted: #b3a999;
+  --accent: #b88a4a; /* warm aged gold */
+  --accent-strong: #d8a85e;
+  --danger: #a8443a;
+  --danger-strong: #c45146;
+  --ok: #6f8f5f;
+
+  /* Gill Sans is the font requested by the client, kept first so anyone
+     who has the real font still gets it. Cabin is a self-hosted, free
+     humanist sans-serif inspired by Gill Sans that guarantees a close
+     look for everyone else; the rest are classic system fallbacks. */
+  --font: "Gill Sans", "Gill Sans MT", "Cabin", Calibri, "Trebuchet MS",
+    "Segoe UI", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ------------------------------------------------------------------ */
+/* Navbar                                                              */
+/* ------------------------------------------------------------------ */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  background-color: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.navbar__logo {
+  height: 2.2rem;
+  width: auto;
+  display: block;
+}
+
+.navbar__title {
+  font-size: 1.3rem;
+  letter-spacing: 0.04em;
+}
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navbar__link {
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+  transition: color 0.2s ease;
+}
+
+.navbar__link:hover,
+.navbar__link.active {
+  color: var(--accent-strong);
+}
+
+.navbar__link--admin {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.35rem 0.8rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero / store description                                            */
+/* ------------------------------------------------------------------ */
+.hero {
+  padding: 5rem 2rem;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% -20%, rgba(184, 138, 74, 0.18), transparent 60%),
+    var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.hero__content {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.hero__title {
+  font-size: 3rem;
+  margin: 0 0 1rem;
+  letter-spacing: 0.05em;
+  color: var(--accent-strong);
+}
+
+.hero__subtitle {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  margin: 0 0 2rem;
+}
+
+.hero__cta {
+  display: inline-block;
+  padding: 0.7rem 2rem;
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  color: var(--accent-strong);
+  letter-spacing: 0.05em;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.hero__cta:hover {
+  background-color: var(--accent);
+  color: var(--bg);
+}
+
+/* ------------------------------------------------------------------ */
+/* Sections                                                           */
+/* ------------------------------------------------------------------ */
+.section-title {
+  text-align: center;
+  font-size: 2rem;
+  letter-spacing: 0.05em;
+  margin: 0 0 2.5rem;
+  color: var(--text);
+}
+
+.section-title::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 2px;
+  background-color: var(--accent);
+  margin: 0.8rem auto 0;
+}
+
+.history {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+}
+
+.history__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.history__photos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.history__photo {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background-color: var(--bg-card);
+}
+
+.history__text p {
+  color: var(--text-muted);
+  margin: 0 0 1rem;
+}
+
+.history__text strong {
+  color: var(--text);
+}
+
+/* ------------------------------------------------------------------ */
+/* Products grid                                                      */
+/* ------------------------------------------------------------------ */
+.products {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4rem 2rem 5rem;
+}
+
+.potion-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.8rem;
+}
+
+.potion-card {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.potion-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--accent);
+}
+
+.potion-card__image-wrap {
+  background-color: #0e0c0a;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.potion-card__image {
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.potion-card__body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.2rem;
+}
+
+.potion-card__name {
+  margin: 0 0 0.6rem;
+  font-size: 1.2rem;
+  color: var(--accent-strong);
+}
+
+.potion-card__description {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  flex: 1;
+  margin: 0 0 1.2rem;
+}
+
+.potion-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.potion-card__price {
+  font-size: 1.1rem;
+  color: var(--text);
+}
+
+.potion-card__buy {
+  background-color: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1.2rem;
+  font-family: inherit;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.potion-card__buy:hover {
+  background-color: var(--accent-strong);
+}
+
+/* ------------------------------------------------------------------ */
+/* Footer                                                             */
+/* ------------------------------------------------------------------ */
+.footer {
+  background-color: var(--bg-elevated);
+  border-top: 1px solid var(--border);
+  padding: 3rem 2rem 1.5rem;
+  margin-top: auto;
+}
+
+.footer__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+}
+
+.footer__heading {
+  color: var(--accent-strong);
+  margin: 0 0 0.8rem;
+  letter-spacing: 0.04em;
+}
+
+.footer__text {
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.footer__legal {
+  max-width: 1100px;
+  margin: 2.5rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* ------------------------------------------------------------------ */
+/* Generic state messages & buttons                                  */
+/* ------------------------------------------------------------------ */
+.state-message {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 1rem 0;
+}
+
+.state-message--error {
+  color: var(--danger-strong);
+}
+
+.state-message--ok {
+  color: var(--ok);
+}
+
+.button {
+  background-color: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 4px;
+  padding: 0.6rem 1.4rem;
+  font-family: inherit;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.button:hover {
+  background-color: var(--accent-strong);
+}
+
+.button--ghost {
+  background-color: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.button--ghost:hover {
+  background-color: var(--bg-card);
+  color: var(--text);
+}
+
+.button--danger {
+  background-color: var(--danger);
+}
+
+.button--danger:hover {
+  background-color: var(--danger-strong);
+}
+
+/* ------------------------------------------------------------------ */
+/* Admin page                                                        */
+/* ------------------------------------------------------------------ */
+.admin {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 4rem 2rem 5rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1.2rem;
+}
+
+.field__label {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+}
+
+.field input,
+.field textarea {
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 0.6rem 0.8rem;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.login-form,
+.potion-form {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.login-form__hint {
+  color: var(--text-muted);
+  margin: 0 0 1.5rem;
+}
+
+.dashboard__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+.dashboard__heading {
+  font-size: 1.3rem;
+  margin: 0 0 1.2rem;
+  color: var(--accent-strong);
+}
+
+.admin-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.admin-list__item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.7rem 1rem;
+}
+
+.admin-list__thumb {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  background-color: #0e0c0a;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.admin-list__info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.admin-list__info span {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ------------------------------------------------------------------ */
+/* Responsive                                                        */
+/* ------------------------------------------------------------------ */
+@media (max-width: 720px) {
+  .history__grid {
+    grid-template-columns: 1fr;
+  }
+  .hero__title {
+    font-size: 2.2rem;
+  }
+  .navbar {
+    padding: 1rem;
+  }
+}
